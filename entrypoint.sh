@@ -1,8 +1,12 @@
 #!/usr/bin/env ruby
 
+require "json"
 require "octokit"
 
-push = File.read(ENV.fetch("GITHUB_EVENT_PATH"))
+json = File.read(ENV.fetch("GITHUB_EVENT_PATH"))
+push = JSON.parse(json)
+
+puts "Debug: #{push.inspect}"
 
 github = Octokit::Client.new(access_token: ENV["GITHUB_TOKEN"])
 
@@ -20,7 +24,7 @@ branch_name = push["ref"].split("/").last
 pr = pulls.find { |pr| pr.dig("head", "ref") == branch_name }
 
 if !pr
-  STDERR.puts "Couldn't find an open pull request for branch #{branch_name}."
+  puts "Couldn't find an open pull request for branch #{branch_name}."
   exit(1)
 end
 
