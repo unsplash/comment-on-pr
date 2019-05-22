@@ -5,8 +5,7 @@ LABEL "com.github.actions.description"="Leaves a comment on an open PR matching 
 LABEL "com.github.actions.icon"="message-square"
 LABEL "com.github.actions.color"="blue"
 
-ADD bin /bin
-
 RUN gem install octokit
 
-ENTRYPOINT ["entrypoint"]
+ADD entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]

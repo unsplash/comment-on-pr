@@ -9,7 +9,7 @@ github = Octokit::Client.new(access_token: ENV["GITHUB_TOKEN"])
 # TODO: check that this is a push event
 
 if !ENV["GITHUB_TOKEN"]
-  STDERR.puts "Missing GITHUB_TOKEN"
+  puts "Missing GITHUB_TOKEN"
   exit(1)
 end
 
