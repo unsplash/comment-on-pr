@@ -6,8 +6,6 @@ require "octokit"
 json = File.read(ENV.fetch("GITHUB_EVENT_PATH"))
 push = JSON.parse(json)
 
-puts "Debug: #{push.inspect}"
-
 github = Octokit::Client.new(access_token: ENV["GITHUB_TOKEN"])
 
 # TODO: check that this is a push event
@@ -21,7 +19,7 @@ repo = push["repository"]["full_name"]
 pulls = github.pull_requests(repo, state: "open")
 
 branch_name = push["ref"].split("/").last
-pr = pulls.find { |pr| pr.dig("head", "ref") == branch_name }
+pr = pulls.find { |pr| pr["head"]["ref"] == branch_name }
 
 if !pr
   puts "Couldn't find an open pull request for branch #{branch_name}."
