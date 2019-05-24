@@ -8,10 +8,13 @@ push = JSON.parse(json)
 
 github = Octokit::Client.new(access_token: ENV["GITHUB_TOKEN"])
 
-# TODO: check that this is a push event
-
 if !ENV["GITHUB_TOKEN"]
   puts "Missing GITHUB_TOKEN"
+  exit(1)
+end
+
+if ARGV.empty?
+  puts "Missing message argument."
   exit(1)
 end
 
@@ -26,5 +29,5 @@ if !pr
   exit(1)
 end
 
-# TODO: configurable comment message.
-github.add_comment(repo, pr["number"], "Schema changed!")
+message = ARGV.join(' ')
+github.add_comment(repo, pr["number"], message)
