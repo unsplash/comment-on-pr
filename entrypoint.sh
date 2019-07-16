@@ -21,11 +21,11 @@ end
 repo = push["repository"]["full_name"]
 pulls = github.pull_requests(repo, state: "open")
 
-branch_name = push["ref"].split("/").last
-pr = pulls.find { |pr| pr["head"]["ref"] == branch_name }
+push_head = push["after"]
+pr = pulls.find { |pr| pr["head"]["sha"] == push_head }
 
 if !pr
-  puts "Couldn't find an open pull request for branch #{branch_name}."
+  puts "Couldn't find an open pull request for branch with head at #{push_head}."
   exit(1)
 end
 
