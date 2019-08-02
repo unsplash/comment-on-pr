@@ -29,6 +29,8 @@ if !pr
   exit(1)
 end
 
+message = ARGV.join(' ')
+
 coms = github.issue_comments(repo, pr["number"])
 duplicate = coms.find { |c| c["user"]["login"] == 'github-actions[bot]' and c["body"] == message }
 
@@ -37,5 +39,4 @@ if duplicate
   exit(0)
 end
 
-message = ARGV.join(' ')
 github.add_comment(repo, pr["number"], message)
