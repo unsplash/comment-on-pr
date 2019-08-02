@@ -29,5 +29,13 @@ if !pr
   exit(1)
 end
 
+coms = github.issue_comments(repo, pr["number"])
+duplicate = coms.find { |c| c["user"]["login"] == 'github-actions[bot]' and c["body"] == message }
+
+if duplicate
+  puts "The PR already contains a database change notification"
+  exit(0)
+end
+
 message = ARGV.join(' ')
 github.add_comment(repo, pr["number"], message)
