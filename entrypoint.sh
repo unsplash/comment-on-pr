@@ -21,7 +21,7 @@ end
 repo = push["repository"]["full_name"]
 pulls = github.pull_requests(repo, state: "open")
 
-push_head = push["after"]
+push_head = push["pull_request"]["head"]["sha"]
 pr = pulls.find { |pr| pr["head"]["sha"] == push_head }
 
 if !pr
