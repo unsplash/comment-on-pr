@@ -6,7 +6,7 @@ A GitHub action to comment on the relevant open PR when a commit is pushed.
 
 - Requires the `GITHUB_TOKEN` secret.
 - Requires the comment's message in the `msg` parameter.
-
+- Supports `push` and `pull_request` event types.
 
 ### Sample workflow
 
