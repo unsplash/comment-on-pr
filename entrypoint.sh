@@ -40,7 +40,7 @@ coms = github.issue_comments(repo, pr_number)
 duplicate = coms.find { |c| c["user"]["login"] == "github-actions[bot]" && c["body"] == message }
 
 if duplicate
-  puts "The PR already contains a database change notification"
+  puts "The PR already contains this message"
   exit(0)
 end
 
