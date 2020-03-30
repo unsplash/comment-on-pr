@@ -10,7 +10,7 @@ A GitHub action to comment on the relevant open PR when a commit is pushed.
 
 ### Sample workflow
 
-```
+```yaml
 name: comment-on-pr example
 on: pull_request
 jobs:
@@ -24,4 +24,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           msg: "Check out this message!"
+          check_for_duplicate_msg: false  # OPTIONAL 
 ```
