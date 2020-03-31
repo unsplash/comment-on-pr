@@ -13,11 +13,13 @@ if !ENV["GITHUB_TOKEN"]
   exit(1)
 end
 
-if ARGV.empty?
+if ARGV[0].empty?
   puts "Missing message argument."
   exit(1)
 end
 
+message = ARGV[0]
+check_duplicate_msg = ARGV[1]
 repo = event["repository"]["full_name"]
 
 if ENV.fetch("GITHUB_EVENT_NAME") == "pull_request"
@@ -34,14 +36,16 @@ else
   end
   pr_number = pr["number"]
 end
-message = ARGV.join(' ')
 
 coms = github.issue_comments(repo, pr_number)
-duplicate = coms.find { |c| c["user"]["login"] == "github-actions[bot]" && c["body"] == message }
 
-if duplicate
-  puts "The PR already contains this message"
-  exit(0)
+if check_duplicate_msg == "true"
+  duplicate = coms.find { |c| c["user"]["login"] == "github-actions[bot]" && c["body"] == message }
+
+  if duplicate
+    puts "The PR already contains this message"
+    exit(0)
+  end
 end
 
 github.add_comment(repo, pr_number, message)

@@ -8,8 +8,13 @@ inputs:
   msg: 
     description: Comment's message
     required: true
+  check_for_duplicate_msg:
+    description: If false, action doesn't check for duplicate msg.
+    required: false
+    default: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
     - ${{ inputs.msg }}
+    - ${{ inputs.check_for_duplicate_msg }}
