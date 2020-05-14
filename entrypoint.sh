@@ -40,7 +40,7 @@ end
 coms = github.issue_comments(repo, pr_number)
 
 if check_duplicate_msg == "true"
-  duplicate = coms.find { |c| c["user"]["login"] == "github-actions[bot]" && c["body"] == message }
+  duplicate = coms.find { |c| c["body"] == message }
 
   if duplicate
     puts "The PR already contains this message"
