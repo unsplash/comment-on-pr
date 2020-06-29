@@ -42,7 +42,7 @@ coms = github.issue_comments(repo, pr_number)
 
 if check_duplicate_msg == "true"
   if duplicate_msg_pattern != nil
-    duplicate = coms.find { |c| c["body"] =~ (Regexp.new duplicate_msg_pattern) }
+    duplicate = coms.find { |c| (c["body"] =~ (Regexp.new duplicate_msg_pattern)) != nil }
   else
     duplicate = coms.find { |c| c["body"] == message }
   end
