@@ -22,8 +22,6 @@ message = ARGV[0]
 check_duplicate_msg = ARGV[1]
 duplicate_msg_pattern = ARGV[2]
 
-puts "test"
-
 repo = event["repository"]["full_name"]
 
 if ENV.fetch("GITHUB_EVENT_NAME") == "pull_request"
@@ -44,13 +42,11 @@ end
 coms = github.issue_comments(repo, pr_number)
 
 if check_duplicate_msg == "true"
-  puts "duplicate_msg_pattern: #{duplicate_msg_pattern}"
   if duplicate_msg_pattern != nil
-    duplicate = coms.find { |c| (c["body"] =~ /Great job/) != nil }
+    duplicate = coms.find { |c| (c["body"] =~ (Regexp.new duplicate_msg_pattern)) != nil }
   else
     duplicate = coms.find { |c| c["body"] == message }
   end
-  puts "duplicate: #{duplicate}"
 
   if duplicate
     puts "The PR already contains this message"
