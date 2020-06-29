@@ -21,6 +21,9 @@ end
 message = ARGV[0]
 check_duplicate_msg = ARGV[1]
 duplicate_msg_pattern = ARGV[2]
+
+puts "test"
+
 repo = event["repository"]["full_name"]
 
 if ENV.fetch("GITHUB_EVENT_NAME") == "pull_request"
