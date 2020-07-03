@@ -31,8 +31,8 @@ else
   pr = pulls.find { |pr| pr["head"]["sha"] == push_head }
 
   if !pr
-    puts "Couldn't find an open pull request for branch with head at #{push_head}."
-    exit(1)
+    github.create_commit_comment(repo, ENV.fetch("GITHUB_SHA"), message)
+    exit(0)
   end
   pr_number = pr["number"]
 end

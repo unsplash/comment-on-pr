@@ -12,7 +12,7 @@ A GitHub action to comment on the relevant open PR when a commit is pushed.
 
 ```yaml
 name: comment-on-pr example
-on: pull_request
+on: push
 jobs:
   example:
     name: sample comment
