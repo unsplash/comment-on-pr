@@ -37,9 +37,8 @@ else
   pr_number = pr["number"]
 end
 
-coms = github.issue_comments(repo, pr_number)
-
 if check_duplicate_msg == "true"
+  coms = github.issue_comments(repo, pr_number)
   duplicate = coms.find { |c| c["body"] == message }
 
   if duplicate
