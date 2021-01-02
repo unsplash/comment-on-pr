@@ -12,9 +12,14 @@ inputs:
     description: If false, action doesn't check for duplicate msg.
     required: false
     default: true
+  delete_prev_regex_msg:
+    description: If not empty, all messages matching the given regex will be deleted.
+    required: false
+    default: nil
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
     - ${{ inputs.msg }}
     - ${{ inputs.check_for_duplicate_msg }}
+    - ${{ inputs.delete_prev_regex_msg }}

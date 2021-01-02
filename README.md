@@ -24,5 +24,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           msg: "Check out this message!"
-          check_for_duplicate_msg: false  # OPTIONAL 
+          check_for_duplicate_msg: false  # OPTIONAL
+          delete_prev_regex_msg: "[0-9]"  # OPTIONAL
 ```
