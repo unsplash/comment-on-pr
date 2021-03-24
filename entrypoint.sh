@@ -6,12 +6,12 @@ require "octokit"
 json = File.read(ENV.fetch("GITHUB_EVENT_PATH"))
 event = JSON.parse(json)
 
-github = Octokit::Client.new(access_token: ENV["GITHUB_TOKEN"])
-
 if !ENV["GITHUB_TOKEN"]
   puts "Missing GITHUB_TOKEN"
   exit(1)
 end
+
+github = Octokit::Client.new(access_token: ENV["GITHUB_TOKEN"])
 
 if ARGV[0].empty?
   puts "Missing message argument."
