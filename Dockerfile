@@ -1,4 +1,4 @@
-FROM ruby:2.7-alpine
+FROM ruby:3-alpine3.13
 
 LABEL "com.github.actions.name"="Comment on PR"
 LABEL "com.github.actions.description"="Leaves a comment on an open PR matching a push event."
