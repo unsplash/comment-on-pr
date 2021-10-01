@@ -20,7 +20,8 @@ end
 
 message = ARGV[0]
 check_duplicate_msg = ARGV[1]
-duplicate_msg_pattern = ARGV[2]
+delete_prev_regex_msg = ARGV[2]
+duplicate_msg_pattern = ARGV[3]
 
 repo = event["repository"]["full_name"]
 
@@ -51,6 +52,14 @@ if check_duplicate_msg == "true"
   if duplicate
     puts "The PR already contains this message"
     exit(0)
+  end
+end
+
+ if delete_prev_regex_msg != nil
+  coms.each do |n|
+    if n["body"].match(/#{delete_prev_regex_msg}/)
+	github.delete_comment(repo, n["id"], opt = {})
+    end
   end
 end
 
