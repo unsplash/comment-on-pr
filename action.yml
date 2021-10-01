@@ -9,12 +9,23 @@ inputs:
     description: Comment's message
     required: true
   check_for_duplicate_msg:
-    description: If false, action doesn't check for duplicate msg.
+    description: If false, action doesn't check for duplicate message.
     required: false
     default: true
+  delete_prev_regex_msg:
+    description: If not empty, all messages matching the given regex will be deleted.
+    required: false
+    default: nil
+  duplicate_msg_pattern:
+    description: Optional pattern to use when checking for duplicate message.
+    required: false
+
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
     - ${{ inputs.msg }}
     - ${{ inputs.check_for_duplicate_msg }}
+    - ${{ inputs.delete_prev_regex_msg }}
+    - ${{ inputs.duplicate_msg_pattern }}
+
