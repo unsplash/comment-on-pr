@@ -44,6 +44,7 @@ comments = github.issue_comments(repo, pr_number)
 
 if check_duplicate_msg == "true"
     duplicate = if !duplicate_msg_pattern.empty?
+      comments.find { |c| c["body"].match(/#{duplicate_msg_pattern}/) }
   else
     comments.find { |c| c["body"] == message }
   end
