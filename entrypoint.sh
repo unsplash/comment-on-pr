@@ -43,8 +43,7 @@ end
 comments = github.issue_comments(repo, pr_number)
 
 if check_duplicate_msg == "true"
-  duplicate = if duplicate_msg_pattern
-    comments.find { |c| c["body"] =~ Regexp.new(duplicate_msg_pattern) }
+    duplicate = if !duplicate_msg_pattern.empty?
   else
     comments.find { |c| c["body"] == message }
   end
@@ -55,7 +54,7 @@ if check_duplicate_msg == "true"
   end
 end
 
-if delete_prev_regex_msg
+  if !delete_prev_regex_msg.empty?
   comments.each do |comment|
     if comment["body"].match(/#{delete_prev_regex_msg}/)
       github.delete_comment(repo, comment["id"])
