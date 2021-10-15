@@ -40,25 +40,27 @@ else
   pr_number = pr["number"]
 end
 
-comments = github.issue_comments(repo, pr_number)
+if !duplicate_msg_pattern.empty? || !delete_prev_regex_msg.empty?
+  comments = github.issue_comments(repo, pr_number)
 
-if check_duplicate_msg == "true"
-  duplicate = if duplicate_msg_pattern
-    comments.find { |c| c["body"] =~ Regexp.new(duplicate_msg_pattern) }
-  else
-    comments.find { |c| c["body"] == message }
+  if check_duplicate_msg == "true"
+    duplicate = if !duplicate_msg_pattern.empty?
+      comments.find { |c| c["body"].match(/#{duplicate_msg_pattern}/) }
+    else
+      comments.find { |c| c["body"] == message }
+    end
+
+    if duplicate
+      puts "The PR already contains this message"
+      exit(0)
+    end
   end
 
-  if duplicate
-    puts "The PR already contains this message"
-    exit(0)
-  end
-end
-
-if delete_prev_regex_msg
-  comments.each do |comment|
-    if comment["body"].match(/#{delete_prev_regex_msg}/)
-      github.delete_comment(repo, comment["id"])
+  if !delete_prev_regex_msg.empty?
+    comments.each do |comment|
+      if comment["body"].match(/#{delete_prev_regex_msg}/)
+        github.delete_comment(repo, comment["id"])
+      end
     end
   end
 end

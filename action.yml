@@ -13,12 +13,13 @@ inputs:
     required: false
     default: true
   delete_prev_regex_msg:
-    description: If not empty, all messages matching the given regex will be deleted.
+    description: If provided, all messages matching the given regex will be deleted.
     required: false
-    default: nil
+    default: ~
   duplicate_msg_pattern:
-    description: Optional pattern to use when checking for duplicate message.
+    description: If provided, the regex pattern will be used when checking for duplicate messages.
     required: false
+    default: ~
 
 runs:
   using: 'docker'
