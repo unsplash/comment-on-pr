@@ -1,4 +1,6 @@
 class GitHub
+  class MissingPR < StandardError; end
+
   attr_reader :client
 
   def initialize(env:)
@@ -26,10 +28,10 @@ class GitHub
         pr = pulls.find { |pr| pr["head"]["sha"] == push_head }
 
         if !pr
-          puts "Couldn't find an open pull request for branch with head at #{push_head}."
-          exit(1)
+          raise MissingPR, "Couldn't find an open pull request for branch with head at #{push_head}"
         end
-        pr_number = pr["number"]
+
+        pr["number"]
       end
 
     end
@@ -37,9 +39,15 @@ class GitHub
 
   def comments
     @_comments ||= client.issue_comments(repo, pr_number)
+  rescue MissingPR => e
+    puts e.message
+    exit(1)
   end
 
   def comment!(msg)
     client.add_comment(repo, pr_number, message)
+  rescue MissingPR => e
+    puts e.message
+    exit(1)
   end
 end
