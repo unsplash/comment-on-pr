@@ -10,14 +10,14 @@ if !ENV["GITHUB_TOKEN"]
   exit(1)
 end
 
-if ARGV[0].empty?
+if ARGV[0]&.empty?
   puts "Missing message argument."
   exit(1)
 end
 
 commenter = Commenter.new(github: GitHub.new(env: ENV),
                           message: ARGV[0],
-                          check_for_dupes: ARGV[1],
+                          check_for_duplicates: ARGV[1],
                           duplicate_pattern: ARGV[2],
                           delete_previous_pattern: ARGV[3])
 

@@ -1,8 +1,8 @@
 class Commenter
-  def initialize(github:, message:, check_for_dupes: true, duplicate_pattern: nil, delete_previous_pattern: nil)
+  def initialize(github:, message:, check_for_duplicates: true, duplicate_pattern: nil, delete_previous_pattern: nil)
     @github = github
     @message = message
-    @block_duplicates = check_for_dupes.to_s.downcase.strip == "true"
+    @block_duplicates = check_for_duplicates.to_s.downcase.strip == "true"
     @duplicate_pattern = !duplicate_pattern.to_s.empty? && Regexp.new(duplicate_pattern)
     @delete_previous_pattern = !delete_previous_pattern.to_s.empty? && Regexp.new(delete_previous_pattern)
   end
@@ -15,16 +15,16 @@ class Commenter
     if @duplicate_pattern
       @github.comments.any? { |c| c["body"].match(/#{@duplicate_pattern}/) }
     else
-      @github.comments.any? { |c| c["body"] == message }
+      @github.comments.any? { |c| c["body"] == @message }
     end
   end
 
   def delete_matching_comments!
     return if !@delete_previous_pattern
 
-    comments.each do |comment|
-      if comment["body"].match(/#{@delete_prev_regex_msg}/)
-        @github.delete_comment(repo, comment["id"])
+    @github.comments.each do |comment|
+      if comment["body"].match(/#{@delete_previous_pattern}/)
+        @github.delete_comment(@github.repo, comment["id"])
       end
     end
   end
