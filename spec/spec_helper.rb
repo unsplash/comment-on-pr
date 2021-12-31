@@ -1,4 +1,5 @@
 require "json"
 require "octokit"
+require "open3"
 require_relative "../lib/github"
 require_relative "../lib/commenter"

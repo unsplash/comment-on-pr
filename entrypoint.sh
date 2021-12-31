@@ -10,7 +10,7 @@ if !ENV["GITHUB_TOKEN"]
   exit(1)
 end
 
-if ARGV[0]&.empty?
+if ARGV[0].nil? || ARGV[0].empty?
   puts "Missing message argument."
   exit(1)
 end

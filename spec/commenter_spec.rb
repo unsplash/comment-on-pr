@@ -1,6 +1,6 @@
-  require "spec_helper"
+require "spec_helper"
 
-  RSpec.describe Commenter do
+RSpec.describe Commenter do
   let(:github) do
     spy("GitHub", comments: [
       { "body" => "Oh, hi! I didn't see you there." },
@@ -82,4 +82,4 @@
     end
   end
 
-  end
+end
