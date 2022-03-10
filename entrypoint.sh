@@ -9,11 +9,6 @@ event = JSON.parse(json)
 if !ENV["GITHUB_TOKEN"]
   puts "Missing GITHUB_TOKEN"
   exit(1)
-end
-
-github = Octokit::Client.new(access_token: ENV["GITHUB_TOKEN"])
-
-
 message = ARGV[0]
 check_duplicate_msg = ARGV[1]
 delete_prev_regex_msg = ARGV[2]
