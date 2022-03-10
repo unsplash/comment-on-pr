@@ -1,4 +1,4 @@
-# Comment on PR via GitHub Action with delete
+# Comment on PR via GitHub Action
 
 A GitHub action to comment on the relevant open PR when a commit is pushed. If no msg is given, it can be used to delete previously posted messages.
 
