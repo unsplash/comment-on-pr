@@ -9,6 +9,8 @@ event = JSON.parse(json)
 if !ENV["GITHUB_TOKEN"]
   puts "Missing GITHUB_TOKEN"
   exit(1)
+end
+
 message = ARGV[0]
 check_duplicate_msg = ARGV[1]
 delete_prev_regex_msg = ARGV[2]
