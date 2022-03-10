@@ -13,10 +13,6 @@ end
 
 github = Octokit::Client.new(access_token: ENV["GITHUB_TOKEN"])
 
-# if ARGV[0].empty?
-#   puts "Missing message argument."
-#   exit(1)
-# end
 
 message = ARGV[0]
 check_duplicate_msg = ARGV[1]
