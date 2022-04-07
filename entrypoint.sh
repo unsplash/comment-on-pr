@@ -27,6 +27,8 @@ repo = event["repository"]["full_name"]
 
 if ENV.fetch("GITHUB_EVENT_NAME") == "pull_request"
   pr_number = event["number"]
+elsif ENV.fetch("GITHUB_EVENT_NAME") == "pull_request_review"
+  pr_number = event["pull_request"]["number"]
 else
   pulls = github.pull_requests(repo, state: "open")
 
