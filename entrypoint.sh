@@ -42,7 +42,7 @@ else
   pr_number = pr["number"]
 end
 
-if !duplicate_msg_pattern.empty? || !delete_prev_regex_msg.empty?
+if check_duplicate_msg == "true" || !delete_prev_regex_msg.empty?
   comments = github.issue_comments(repo, pr_number)
 
   if check_duplicate_msg == "true"
