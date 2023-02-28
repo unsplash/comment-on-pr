@@ -12,12 +12,6 @@ if !ENV["GITHUB_TOKEN"]
 end
 
 github = Octokit::Client.new(access_token: ENV["GITHUB_TOKEN"])
-
-if ARGV[0].empty?
-  puts "Missing message argument."
-  exit(1)
-end
-
 message = ARGV[0]
 check_duplicate_msg = ARGV[1]
 delete_prev_regex_msg = ARGV[2]
@@ -67,4 +61,6 @@ if !duplicate_msg_pattern.empty? || !delete_prev_regex_msg.empty?
   end
 end
 
-github.add_comment(repo, pr_number, message)
+if !ARGV[0].empty?
+  github.add_comment(repo, pr_number, message)
+end

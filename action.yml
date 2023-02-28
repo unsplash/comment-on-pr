@@ -7,7 +7,7 @@ branding:
 inputs:
   msg: 
     description: Comment's message
-    required: true
+    required: false
   check_for_duplicate_msg:
     description: If false, action doesn't check for duplicate message.
     required: false
